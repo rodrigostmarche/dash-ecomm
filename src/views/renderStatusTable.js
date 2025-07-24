@@ -21,6 +21,7 @@ function renderStatusTable(type, value, orders) {
             <th>Financeiro</th>
             <th>Fulfillment</th>
             <th>Status Metafield</th>
+            <th>Status Faturamento</th>
           </tr>
         </thead>
         <tbody>
@@ -31,7 +32,8 @@ function renderStatusTable(type, value, orders) {
                 <td>${o.name}</td>
                 <td>${o.displayFinancialStatus}</td>
                 <td>${o.displayFulfillmentStatus}</td>
-                <td>${o.statusMetafield}</td>
+                <td>${o.orderStatus}</td>
+                <td>${o.invoiceStatus}</td>
               </tr>`;
           }).join('')}
         </tbody>

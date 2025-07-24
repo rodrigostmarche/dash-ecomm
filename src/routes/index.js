@@ -15,7 +15,8 @@ router.get('/', async (req, res) => {
     const totalOrders = orders.length;
     const financialCounts = countByField(orders, 'displayFinancialStatus');
     const fulfillmentCounts = countByField(orders, 'displayFulfillmentStatus');
-    const statusCounts = countByField(orders, 'statusMetafield');
+    const statusCounts = countByField(orders, 'orderStatus');
+    const invoiceStatus = countByField(orders, 'invoiceStatus');
 
     const fulfilledNotPaidOrders = orders.filter(
       o => o.displayFulfillmentStatus === 'FULFILLED' && o.displayFinancialStatus !== 'PAID'
@@ -28,6 +29,7 @@ router.get('/', async (req, res) => {
         financialCounts,
         fulfillmentCounts,
         statusCounts,
+        invoiceStatus,
         fulfilledNotPaidOrders,
         range
       )

@@ -18,7 +18,8 @@ function renderOrderDetails(order) {
       <table>
         <tr><th>displayFinancialStatus</th><td>${order.displayFinancialStatus}</td></tr>
         <tr><th>displayFulfillmentStatus</th><td>${order.displayFulfillmentStatus}</td></tr>
-        <tr><th>Status Metafield</th><td>${order.statusMetafield}</td></tr>
+        <tr><th>Status Metafield</th><td>${order.orderStatus}</td></tr>
+        <tr><th>Status Metafield</th><td>${order.invoiceStatus}</td></tr>
         <tr><th>ID</th><td>${order.id}</td></tr>
         <tr><th>Created At</th><td>${order.createdAt}</td></tr>
         <tr><th>Updated At</th><td>${order.updatedAt}</td></tr>

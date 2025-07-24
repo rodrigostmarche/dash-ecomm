@@ -1,4 +1,4 @@
-function renderHTML(title, totalOrders, financialCounts, fulfillmentCounts, statusCounts, fulfilledNotPaidOrders, selectedRange) {
+function renderHTML(title, totalOrders, financialCounts, fulfillmentCounts, statusCounts, invoiceStatus, fulfilledNotPaidOrders, selectedRange) {
   const createLinks = (counts, type, range) =>
     Object.entries(counts)
       .map(([key, value]) => `<li><a href="/status/${type}/${encodeURIComponent(key)}?range=${range}"><strong>${key}:</strong> ${value}</a></li>`) 
@@ -51,7 +51,11 @@ function renderHTML(title, totalOrders, financialCounts, fulfillmentCounts, stat
         </div>
         <div class="card">
           <h2>Metafield \"order.status\"</h2>
-          <ul>${createLinks(statusCounts, 'statusMetafield', selectedRange)}</ul>
+          <ul>${createLinks(statusCounts, 'orderStatus', selectedRange)}</ul>
+        </div>
+        <div class="card">
+          <h2>Metafield \"invoice.status\"</h2>
+          <ul>${createLinks(invoiceStatus, 'invoiceStatus', selectedRange)}</ul>
         </div>
         <div class="card">
           <h2>Pedidos FULFILLED e não PAID</h2>

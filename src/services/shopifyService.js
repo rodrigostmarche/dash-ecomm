@@ -18,7 +18,10 @@ async function fetchAllOrders(startDate) {
               name
               displayFinancialStatus
               displayFulfillmentStatus
-              metafield(namespace: "order", key: "status") {
+              orderStatus: metafield(namespace: "order", key: "status") {
+                value
+              }
+              invoiceStatus: metafield(namespace: "picking_app", key: "invoice") {
                 value
               }
             }
@@ -51,7 +54,8 @@ async function fetchAllOrders(startDate) {
           name: node.name,
           displayFinancialStatus: node.displayFinancialStatus,
           displayFulfillmentStatus: node.displayFulfillmentStatus,
-          statusMetafield: node.metafield?.value || 'NÃO INTEGRADO',
+          orderStatus: node.orderStatus?.value || 'NÃO INTEGRADO',
+          invoiceStatus: node.invoiceStatus? 'FATURADO' : 'NÃO FATURADO',
         };
       });
 

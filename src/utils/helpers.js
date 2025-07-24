@@ -1,19 +1,39 @@
-function getDateThreeDaysAgo() {
-  const date = new Date();
-  date.setDate(date.getDate() - 7);
-  return date.toISOString().split('T')[0];
+function countByField(array, field) {
+  return array.reduce((acc, pedido) => {
+    const key = (pedido[field] || 'INDEFINIDO').toString().trim().toUpperCase();
+    acc[key] = (acc[key] || 0) + 1;
+
+    return acc;
+  }, {});
 }
 
-function countByField(orders, field) {
-  const count = {};
-  for (const order of orders) {
-    const value = order[field] || 'UNKNOWN';
-    count[value] = (count[value] || 0) + 1;
+function getDateFromRangeOption(option) {
+  const now = new Date();
+  let start;
+
+  switch (option) {
+    case 'today':
+      start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      break;
+    case 'last3days':
+      start = new Date(now);
+      start.setDate(now.getDate() - 3);
+      break;
+    case 'last7days':
+      start = new Date(now);
+      start.setDate(now.getDate() - 7);
+      break;
+    case 'thisMonth':
+      start = new Date(now.getFullYear(), now.getMonth(), 1);
+      break;
+    case 'lastMonth':
+      start = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+      break;
+    default:
+      start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   }
-  return count;
+
+  return start.toISOString().slice(0, 10);
 }
 
-module.exports = {
-  getDateThreeDaysAgo,
-  countByField,
-};
+module.exports = { countByField, getDateFromRangeOption };

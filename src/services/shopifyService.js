@@ -1,11 +1,9 @@
 const axios = require('axios');
-const { getDateThreeDaysAgo } = require('../utils/helpers');
 
 const store = process.env.SHOPIFY_STORE;
 const token = process.env.SHOPIFY_TOKEN;
 
-async function fetchAllOrders() {
-  const dateStr = getDateThreeDaysAgo();
+async function fetchAllOrders(startDate) {
   let hasNextPage = true;
   let endCursor = null;
   const allOrders = [];
@@ -13,7 +11,7 @@ async function fetchAllOrders() {
   while (hasNextPage) {
     const query = `
       query {
-        orders(first: 250, query: "created_at:>=${dateStr}"${endCursor ? `, after: \"${endCursor}\"` : ''}) {
+        orders(first: 250, query: "created_at:>=${startDate}"${endCursor ? `, after: \"${endCursor}\"` : ''}) {
           edges {
             node {
               id
@@ -53,7 +51,7 @@ async function fetchAllOrders() {
           name: node.name,
           displayFinancialStatus: node.displayFinancialStatus,
           displayFulfillmentStatus: node.displayFulfillmentStatus,
-          statusMetafield: node.metafield?.value || 'UNKNOWN',
+          statusMetafield: node.metafield?.value || 'NÃO INTEGRADO',
         };
       });
 
